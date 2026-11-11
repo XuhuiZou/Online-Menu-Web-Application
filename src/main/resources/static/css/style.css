@@ -1,0 +1,143 @@
+body {
+    background-color: #f6f5f2;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: #212529;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    min-height: 100vh;
+    border-right: 1px solid #e5e5e5;
+    padding: 2rem 1.5rem;
+}
+
+.workspace-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #8c7a6b;
+    text-transform: uppercase;
+}
+
+.section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #9e2a2b;
+    text-transform: uppercase;
+}
+
+.btn-add,
+.btn-save {
+    background-color: #9e2a2b;
+    border-color: #9e2a2b;
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.6rem 1.25rem;
+}
+
+.btn-add:hover,
+.btn-save:hover {
+    background-color: #7d2021;
+    border-color: #7d2021;
+    color: #ffffff;
+}
+
+.menu-card,
+.form-card {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e5e5e5;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+}
+
+.form-card {
+    padding: 2rem;
+}
+
+.badge-cat {
+    background-color: #f4eae6;
+    color: #8c2f2f;
+    font-weight: 600;
+    padding: 0.4em 0.8em;
+    border-radius: 20px;
+}
+
+/* Radio Card Styles for Add/Update Form */
+.category-box {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    transition: all 0.15s ease-in-out;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.category-box:hover {
+    border-color: #adb5bd;
+}
+
+.category-radio:checked + .category-box {
+    border-color: #9e2a2b;
+    background-color: #fdf2f2;
+    color: #9e2a2b;
+    font-weight: 600;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    min-height: 100vh;
+    border-right: 1px solid #e5e5e5;
+    padding: 2rem 1.5rem;
+    transition: width 0.25s ease, padding 0.25s ease;
+    position: relative;
+}
+
+/* Collapsed state */
+.sidebar.collapsed {
+    width: 70px !important;
+    min-width: 70px !important;
+    padding: 2rem 0.75rem;
+    text-align: center;
+}
+
+.sidebar.collapsed .sidebar-text,
+.sidebar.collapsed .workspace-label,
+.sidebar.collapsed .btn-add span,
+.sidebar.collapsed .sidebar-footer {
+    display: none;
+}
+
+.sidebar.collapsed .btn-add {
+    padding: 0.6rem 0;
+    width: 100%;
+}
+
+/* Sidebar toggle button */
+.sidebar-toggle-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: -14px;
+    width: 28px;
+    height: 28px;
+    background: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 0.75rem;
+    color: #6c757d;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    z-index: 10;
+}
+
+.sidebar-toggle-btn:hover {
+    background: #f8f9fa;
+    color: #212529;
+}
