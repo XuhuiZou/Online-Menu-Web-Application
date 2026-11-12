@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Menu Manager - View Menu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar d-flex flex-column justify-content-between">
+            <div>
+                <div class="workspace-label mb-1">RESTAURANT WORKSPACE</div>
+                <h5 class="font-weight-bold mb-4">Online Menu Manager</h5>
+                <a th:href="@{/Menu/viewAddForm}" class="btn btn-add btn-block mb-3">+ Add New Menu Item</a>
+            </div>
+            <div class="text-muted small">
+                <div class="font-weight-bold text-dark">Online Menu Web Application</div>
+                <div>Menu management</div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="col-md-9 col-lg-10 p-4 p-md-5">
+            <!-- Header Section -->
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <div class="section-label">MENU COLLECTION</div>
+                    <h2 class="font-weight-bold mt-1 mb-1">View Menu</h2>
+                    <p class="text-muted mb-0">View and maintain your menu items.</p>
+                </div>
+                <div class="text-right text-muted small">
+                    <div class="font-weight-bold text-dark" th:text="${#lists.size(theMenu)} + ' menu items'">4 menu items</div>
+                    <div>Ordered by category, then item name</div>
+                </div>
+            </div>
+
+            <!-- Table Card -->
+            <div class="menu-card">
+                <table class="table table-hover mb-0">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Category</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Update Info</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${theMenu}">
+                        <td class="font-weight-bold align-middle" th:text="${item.name}">Caesar Salad</td>
+                        <td class="align-middle">
+                            <span class="badge badge-cat" th:text="${item.category}">Appetizers</span>
+                        </td>
+                        <td class="align-middle text-muted" th:text="${item.description}">Romaine, parmesan, croutons</td>
+                        <td class="align-middle font-weight-bold"
+                            th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">$8.50</td>
+                        <td class="align-middle">
+                            <!-- Update Action -->
+                            <a th:href="@{/Menu/viewUpdateForm(itemId=${item.id})}"
+                               class="btn btn-sm btn-outline-secondary mr-2">
+                                Update
+                            </a>
+                            <!-- Delete Action with Browser Confirmation -->
+                            <a th:href="@{/Menu/delete(itemId=${item.id})}"
+                               class="btn btn-sm btn-outline-danger"
+                               th:data-name="${item.name}"
+                               onclick="return confirm('Are you sure you want to delete ' + this.getAttribute('data-name') + '?')">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
