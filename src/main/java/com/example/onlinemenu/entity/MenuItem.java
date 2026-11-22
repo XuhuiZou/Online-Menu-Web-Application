@@ -12,16 +12,16 @@ public class MenuItem {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "category")
+    @Column(name = "category", nullable = false, length = 100)
     private String category;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false, length = 500)
     private String description;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false, precision = 8, scale = 2)
     private BigDecimal price;
 
     public MenuItem() {

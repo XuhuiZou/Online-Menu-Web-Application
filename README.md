@@ -73,11 +73,51 @@ The application connects to a local MySQL database named `menu` at `localhost:33
 
 | Column | Type | Role |
 |---|---|---|
-| id | Integer | Primary key, identity generated |
-| name | VARCHAR | Menu item name |
-| category | VARCHAR | Menu category (Appetizers, Entrées, Desserts, Drinks) |
-| description | VARCHAR | Brief description of the item |
-| price | DECIMAL(8,2) | Item price |
+| id | INT, auto-increment | Primary key, identity generated |
+| name | VARCHAR(255), NOT NULL | Menu item name |
+| category | VARCHAR(100), NOT NULL | Menu category (Appetizers, Entrées, Desserts, Drinks) |
+| description | VARCHAR(500), NOT NULL | Brief description of the item |
+| price | DECIMAL(8,2), NOT NULL, >= 0 | Item price |
+
+The schema is checked into the repo — it is not something each teammate has
+to recreate by hand:
+
+- `db/schema.sql` — creates the `menu` database and the `menu_item` table.
+- `db/seed-data.sql` — inserts 16 sample items (4 per category) for testing.
+- `docs/database-setup.md` — step-by-step phpMyAdmin / WAMPServer setup,
+  verification queries, and troubleshooting (including "Unknown database
+  'menu'" and "Table 'menu.menu_item' doesn't exist").
+
+The column definitions above match `MenuItem.java` exactly. Category
+spelling is `Entrées` (with the accent) everywhere — in the form, the seed
+data, and the table — so items group under one category instead of two.
+
+### How to Run
+
+Prerequisites: Java 17, MySQL running locally (see
+`docs/database-setup.md` — import `db/schema.sql`, then `db/seed-data.sql`).
+
+```bash
+./mvnw spring-boot:run
+```
+
+Then open <http://localhost:8080/Menu/list>. (On Windows, use
+`mvnw.cmd spring-boot:run`.)
+
+### Testing
+
+Automated tests run against an in-memory H2 database, so no MySQL server
+is needed:
+
+```bash
+./mvnw test
+```
+
+That runs the context test plus repository tests (save / find / sorted list /
+update / delete), service tests, and controller tests for all five endpoints.
+Manual CRUD checks against the live MySQL database are listed in
+`docs/test-plan.md` (TC-01 to TC-08), including the create → update →
+delete → restart-and-verify-persistence sequence.
 
 ### Wireframes
 
