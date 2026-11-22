@@ -184,7 +184,6 @@ You should see the menu list with the sample items. Use **Add New Menu Item**, *
 |---|---|
 | Application fails to start with a connection error | WAMPServer is not running, MySQL is not on port 3306, or the username/password in `application.properties` is wrong. |
 | `Unknown database 'menu'` | The `database/menu.sql` script has not been imported yet. |
-| Whitelabel Error Page at `/Menu/list` | The Thymeleaf templates `list-menu.html` and `menu-form.html` are missing from `src/main/resources/templates`. |
 | Port 8080 already in use | Stop the other program using port 8080, or set `server.port=8081` in `application.properties`. |
 
 ## Team Members and Responsibilities
