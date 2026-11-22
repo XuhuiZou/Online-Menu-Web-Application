@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Menu Manager - Item Form</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/style.css" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-3 col-lg-2 sidebar d-flex flex-column justify-content-between">
+            <div>
+                <div class="workspace-label mb-1">RESTAURANT WORKSPACE</div>
+                <h5 class="font-weight-bold mb-4">Online Menu Manager</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item mb-2">
+                        <a class="nav-link text-dark font-weight-bold px-0" th:href="@{/Menu/list}">View Menu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-danger font-weight-bold px-0" th:href="@{/Menu/viewAddForm}">+ Add New Menu Item</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="text-muted small">
+                <div class="font-weight-bold text-dark">Online Menu Web Application</div>
+                <div>Menu management</div>
+            </div>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="col-md-9 col-lg-10 p-4 p-md-5">
+            <!-- Dynamic Header for Add vs Update -->
+            <div class="mb-4">
+                <div class="section-label"
+                     th:text="${menuItem.id == 0 or menuItem.id == null} ? 'NEW MENU ITEM' : 'UPDATE MENU ITEM'">
+                    NEW MENU ITEM
+                </div>
+                <h2 class="font-weight-bold mt-1"
+                    th:text="${menuItem.id == 0 or menuItem.id == null} ? 'Add Menu Item' : ${menuItem.name}">
+                    Add Menu Item
+                </h2>
+                <p class="text-muted"
+                   th:text="${menuItem.id == 0 or menuItem.id == null} ? 'Enter the item details, then save to add it to your menu.' : 'Edit the item details, then save your changes.'">
+                    Enter the item details, then save to add it to your menu.
+                </p>
+            </div>
+
+            <!-- Form Card -->
+            <div class="form-card">
+                <form th:action="@{/Menu/save}" th:object="${menuItem}" method="post">
+
+                    <!-- Hidden ID field for Create vs Update handling -->
+                    <input type="hidden" th:field="*{id}" />
+
+                    <!-- Item Name -->
+                    <div class="form-group mb-4">
+                        <label for="name" class="font-weight-bold">Name</label>
+                        <input type="text" th:field="*{name}" id="name" class="form-control" required />
+                    </div>
+
+                    <!-- Category Radio Selection -->
+                    <div class="form-group mb-4">
+                        <label class="font-weight-bold d-block">Category</label>
+                        <div class="form-row">
+                            <div class="col-sm-6 col-md-3 mb-2">
+                                <input type="radio" th:field="*{category}" value="Appetizers" id="catAppetizers" class="d-none category-radio" required />
+                                <label for="catAppetizers" class="category-box">
+                                    <span class="mr-2">&#9675;</span> Appetizers
+                                </label>
+                            </div>
+                            <div class="col-sm-6 col-md-3 mb-2">
+                                <input type="radio" th:field="*{category}" value="Entrées" id="catEntrees" class="d-none category-radio" />
+                                <label for="catEntrees" class="category-box">
+                                    <span class="mr-2">&#9675;</span> Entrées
+                                </label>
+                            </div>
+                            <div class="col-sm-6 col-md-3 mb-2">
+                                <input type="radio" th:field="*{category}" value="Desserts" id="catDesserts" class="d-none category-radio" />
+                                <label for="catDesserts" class="category-box">
+                                    <span class="mr-2">&#9675;</span> Desserts
+                                </label>
+                            </div>
+                            <div class="col-sm-6 col-md-3 mb-2">
+                                <input type="radio" th:field="*{category}" value="Drinks" id="catDrinks" class="d-none category-radio" />
+                                <label for="catDrinks" class="category-box">
+                                    <span class="mr-2">&#9675;</span> Drinks
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div class="form-group mb-4">
+                        <label for="description" class="font-weight-bold">Description</label>
+                        <textarea th:field="*{description}" id="description" rows="3" class="form-control" required></textarea>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="form-group mb-4">
+                        <label for="price" class="font-weight-bold">Price</label>
+                        <div class="input-group" style="max-width: 220px;">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-white border-right-0">$</span>
+                            </div>
+                            <input type="number" step="0.01" min="0" th:field="*{price}" id="price"
+                                   class="form-control border-left-0" placeholder="0.00" required />
+                        </div>
+                    </div>
+
+                    <hr class="my-4" />
+
+                    <!-- Footer Actions -->
+                    <div class="d-flex justify-content-between align-items-center">
+                        <a th:href="@{/Menu/list}" class="text-muted font-weight-bold text-decoration-none">
+                            &larr; Back to Menu List
+                        </a>
+                        <button type="submit" class="btn btn-save">Save</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

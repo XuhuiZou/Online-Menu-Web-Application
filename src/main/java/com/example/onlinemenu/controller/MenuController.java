@@ -1,7 +1,7 @@
-package com.onlinemenu.controller;
+package com.example.onlinemenu.controller;
 
-import com.onlinemenu.entity.MenuItem;
-import com.onlinemenu.service.MenuService;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.service.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +26,7 @@ public class MenuController {
     @GetMapping("/list")
     public String listMenuItems(Model model) {
         List<MenuItem> menuItems = menuService.findAll();
-        model.addAttribute("menuItems", menuItems);
+        model.addAttribute("theMenu", menuItems);
         return "list-menu";
     }
 

@@ -1,4 +1,4 @@
-package com.onlinemenu.entity;
+package com.example.onlinemenu.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;

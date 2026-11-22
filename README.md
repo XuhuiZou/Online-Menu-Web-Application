@@ -151,16 +151,16 @@ Start WAMPServer and wait until its tray icon turns green, which means MySQL is 
 
 1. Open phpMyAdmin at `http://localhost/phpmyadmin`.
 2. Select the **Import** tab, choose the file `database/menu.sql` from this repository, and click **Go**. (You can also paste the file's contents into the **SQL** tab and run it.)
-3. Confirm that the `menu` database now contains a `menu_item` table with four sample rows.
+3. Confirm that the `menu` database now contains a `menu_item` table with five sample rows.
 
-The script creates the `menu` database, the `menu_item` table, and sample menu items. Hibernate automatic schema creation is disabled, so this step is required before the application starts.
+The script creates the `menu` database (UTF-8, so the category "Entrées" saves correctly), the `menu_item` table, and sample menu items. Running it again resets the table to the sample data. Hibernate automatic schema creation is disabled, so this step is required before the application starts.
 
 ### 4. Check the database connection
 
 Open `src/main/resources/application.properties` and make sure it matches your local MySQL setup:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/menu
+spring.datasource.url=jdbc:mysql://localhost:3306/menu?useUnicode=true&characterEncoding=UTF-8
 spring.datasource.username=root
 spring.datasource.password=
 spring.jpa.hibernate.ddl-auto=none
