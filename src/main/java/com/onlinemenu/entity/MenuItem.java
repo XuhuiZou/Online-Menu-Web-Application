@@ -22,12 +22,12 @@ public class MenuItem {
     private String description;
 
     @Column(name = "price")
-    private BigDecimal price;
+    private double price;
 
     public MenuItem() {
     }
 
-    public MenuItem(String name, String category, String description, BigDecimal price) {
+    public MenuItem(String name, String category, String description, double price) {
         this.name = name;
         this.category = category;
         this.description = description;
@@ -66,11 +66,11 @@ public class MenuItem {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
