@@ -27,21 +27,21 @@ public class MenuController {
     public String listMenuItems(Model model) {
         List<MenuItem> menuItems = menuService.findAll();
         model.addAttribute("menuItems", menuItems);
-        return "list-menu";
+        return "menu/list-menu";
     }
 
     // CREATE: open a blank form
     @GetMapping("/viewAddForm")
     public String viewAddForm(Model model) {
         model.addAttribute("menuItem", new MenuItem());
-        return "menu-form";
+        return "menu/menu-form";
     }
 
     // UPDATE: open the form pre-filled with an existing item
     @GetMapping("/viewUpdateForm")
-    public String viewUpdateForm(@RequestParam("itemId") int id, Model model) {
+    public String viewUpdateForm(@RequestParam("itemId") Integer id, Model model) {
         model.addAttribute("menuItem", menuService.findById(id));
-        return "menu-form";
+        return "menu/menu-form";
     }
 
     // CREATE / UPDATE: save a new or edited item

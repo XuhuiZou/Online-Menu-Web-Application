@@ -39,15 +39,15 @@
             <!-- Dynamic Header for Add vs Update -->
             <div class="mb-4">
                 <div class="section-label"
-                     th:text="${menuItem.id == 0 or menuItem.id == null} ? 'NEW MENU ITEM' : 'UPDATE MENU ITEM'">
+                     th:text="${ menuItem.id == null} ? 'NEW MENU ITEM' : 'UPDATE MENU ITEM'">
                     NEW MENU ITEM
                 </div>
                 <h2 class="font-weight-bold mt-1"
-                    th:text="${menuItem.id == 0 or menuItem.id == null} ? 'Add Menu Item' : ${menuItem.name}">
+                    th:text="${ menuItem.id == null} ? 'Add Menu Item' : ${menuItem.name}">
                     Add Menu Item
                 </h2>
                 <p class="text-muted"
-                   th:text="${menuItem.id == 0 or menuItem.id == null} ? 'Enter the item details, then save to add it to your menu.' : 'Edit the item details, then save your changes.'">
+                   th:text="${ menuItem.id == null} ? 'Enter the item details, then save to add it to your menu.' : 'Edit the item details, then save your changes.'">
                     Enter the item details, then save to add it to your menu.
                 </p>
             </div>
@@ -69,28 +69,11 @@
                     <div class="form-group mb-4">
                         <label class="font-weight-bold d-block">Category</label>
                         <div class="form-row">
-                            <div class="col-sm-6 col-md-3 mb-2">
-                                <input type="radio" th:field="*{category}" value="Appetizers" id="catAppetizers" class="d-none category-radio" required />
-                                <label for="catAppetizers" class="category-box">
-                                    <span class="mr-2">&#9675;</span> Appetizers
-                                </label>
-                            </div>
-                            <div class="col-sm-6 col-md-3 mb-2">
-                                <input type="radio" th:field="*{category}" value="Entrées" id="catEntrees" class="d-none category-radio" />
-                                <label for="catEntrees" class="category-box">
-                                    <span class="mr-2">&#9675;</span> Entrées
-                                </label>
-                            </div>
-                            <div class="col-sm-6 col-md-3 mb-2">
-                                <input type="radio" th:field="*{category}" value="Desserts" id="catDesserts" class="d-none category-radio" />
-                                <label for="catDesserts" class="category-box">
-                                    <span class="mr-2">&#9675;</span> Desserts
-                                </label>
-                            </div>
-                            <div class="col-sm-6 col-md-3 mb-2">
-                                <input type="radio" th:field="*{category}" value="Drinks" id="catDrinks" class="d-none category-radio" />
-                                <label for="catDrinks" class="category-box">
-                                    <span class="mr-2">&#9675;</span> Drinks
+                            <div class="col-sm-6 col-md-3 mb-2" th:each="cat: ${T(com.onlinemenu.entity.MenuItem.Category).values()}">
+                                <input type="radio" th:field="*{category}" th:value="${cat}" th:id="${'cat_' + cat}" class="category-radio" required />
+                                <label th:for="${'cat_' + cat}" class="category-box">
+                                    <span class="mr-2">&#9675;</span>
+                                    <span th:text="${cat}">Category Name</span>
                                 </label>
                             </div>
                         </div>
