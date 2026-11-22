@@ -1,6 +1,6 @@
-package com.onlinemenu.repository;
+package com.example.onlinemenu.repository;
 
-import com.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.entity.MenuItem;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
