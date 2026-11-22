@@ -7,16 +7,26 @@ import java.math.BigDecimal;
 @Table(name = "menu_item")
 public class MenuItem {
 
+    public enum Category {
+        Appetizers, Entrees, Desserts, Drinks;
+
+        @Override
+        public String toString() {
+            return this == Entrees ? "Entrées" : name();
+        }
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
     @Column(name = "name")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "category")
-    private String category;
+    private Category category;
 
     @Column(name = "description")
     private String description;
@@ -27,18 +37,18 @@ public class MenuItem {
     public MenuItem() {
     }
 
-    public MenuItem(String name, String category, String description, BigDecimal price) {
+    public MenuItem(String name, Category category, String description, BigDecimal price) {
         this.name = name;
         this.category = category;
         this.description = description;
         this.price = price;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -50,11 +60,11 @@ public class MenuItem {
         this.name = name;
     }
 
-    public String getCategory() {
+    public Category getCategory() {
         return category;
     }
 
-    public void setCategory(String category) {
+    public void setCategory(Category category) {
         this.category = category;
     }
 
