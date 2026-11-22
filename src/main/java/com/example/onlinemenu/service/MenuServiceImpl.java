@@ -1,7 +1,7 @@
-package com.onlinemenu.service;
+package com.example.onlinemenu.service;
 
-import com.onlinemenu.entity.MenuItem;
-import com.onlinemenu.repository.MenuItemRepository;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.repository.MenuItemRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

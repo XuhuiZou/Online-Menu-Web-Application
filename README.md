@@ -164,6 +164,68 @@ To confirm deletion, please click OK; otherwise, click Cancel
 
 > Screenshots of the finished pages can be added here as the project is built.
 
+## Getting Started
+
+Follow these steps to run the application on your own computer.
+
+### Prerequisites
+
+- JDK 17 or newer
+- IntelliJ IDEA
+- [WAMPServer](https://www.wampserver.com/en/) (provides MySQL and phpMyAdmin)
+- Git
+
+### 1. Clone the repository
+
+```
+git clone https://github.com/XuhuiZou/Online-Menu-Web-Application.git
+```
+
+Then open the project folder in IntelliJ IDEA and let Maven download the dependencies.
+
+### 2. Start WAMPServer
+
+Start WAMPServer and wait until its tray icon turns green, which means MySQL is running.
+
+### 3. Create the database and table
+
+1. Open phpMyAdmin at `http://localhost/phpmyadmin`.
+2. Select the **Import** tab, choose the file `database/menu.sql` from this repository, and click **Go**. (You can also paste the file's contents into the **SQL** tab and run it.)
+3. Confirm that the `menu` database now contains a `menu_item` table with five sample rows.
+
+The script creates the `menu` database (UTF-8, so the category "Entrées" saves correctly), the `menu_item` table, and sample menu items. Running it again resets the table to the sample data. Hibernate automatic schema creation is disabled, so this step is required before the application starts.
+
+### 4. Check the database connection
+
+Open `src/main/resources/application.properties` and make sure it matches your local MySQL setup:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/menu?useUnicode=true&characterEncoding=UTF-8
+spring.datasource.username=root
+spring.datasource.password=
+spring.jpa.hibernate.ddl-auto=none
+```
+
+WAMPServer's default MySQL user is usually `root` with an empty password. If your setup uses a different username or password, change it here, but do not commit your personal password to the repository.
+
+### 5. Run the application
+
+Run the main class (the one annotated with `@SpringBootApplication`) from IntelliJ, then open:
+
+```
+http://localhost:8080/Menu/list
+```
+
+You should see the menu list with the sample items. Use **Add New Menu Item**, **Update**, and **Delete** to test the CRUD features.
+
+### Troubleshooting
+
+| Problem | Likely cause and fix |
+|---|---|
+| Application fails to start with a connection error | WAMPServer is not running, MySQL is not on port 3306, or the username/password in `application.properties` is wrong. |
+| `Unknown database 'menu'` | The `database/menu.sql` script has not been imported yet. |
+| Port 8080 already in use | Stop the other program using port 8080, or set `server.port=8081` in `application.properties`. |
+
 ## Team Members and Responsibilities
 
 Course: IT4045C – Final Project

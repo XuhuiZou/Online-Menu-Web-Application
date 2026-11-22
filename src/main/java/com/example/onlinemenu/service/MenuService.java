@@ -1,6 +1,6 @@
-package com.onlinemenu.service;
+package com.example.onlinemenu.service;
 
-import com.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.entity.MenuItem;
 
 import java.util.List;
 
