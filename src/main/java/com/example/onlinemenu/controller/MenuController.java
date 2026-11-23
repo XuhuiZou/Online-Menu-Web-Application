@@ -1,7 +1,7 @@
-package com.onlinemenu.controller;
+package com.example.onlinemenu.controller;
 
-import com.onlinemenu.entity.MenuItem;
-import com.onlinemenu.service.MenuService;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.service.MenuService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,21 +27,21 @@ public class MenuController {
     public String listMenuItems(Model model) {
         List<MenuItem> menuItems = menuService.findAll();
         model.addAttribute("menuItems", menuItems);
-        return "menu/list-menu";
+        return "list-menu";
     }
 
     // CREATE: open a blank form
     @GetMapping("/viewAddForm")
     public String viewAddForm(Model model) {
         model.addAttribute("menuItem", new MenuItem());
-        return "menu/menu-form";
+        return "menu-form";
     }
 
     // UPDATE: open the form pre-filled with an existing item
     @GetMapping("/viewUpdateForm")
     public String viewUpdateForm(@RequestParam("itemId") int id, Model model) {
         model.addAttribute("menuItem", menuService.findById(id));
-        return "menu/menu-form";
+        return "menu-form";
     }
 
     // CREATE / UPDATE: save a new or edited item
