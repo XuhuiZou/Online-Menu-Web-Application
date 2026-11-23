@@ -1,6 +1,7 @@
 package com.example.onlinemenu.service;
 
 import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.exception.MenuItemNotFoundException;
 import com.example.onlinemenu.repository.MenuItemRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuItem findById(int id) {
         return menuItemRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Menu item not found with id: " + id));
+                .orElseThrow(() -> new MenuItemNotFoundException(id));
     }
 
     @Override

@@ -19,8 +19,8 @@ manual checks below do that.
 | --- | --- |
 | `OnlineMenuWebApplicationTests` | The Spring context loads |
 | `MenuItemRepositoryTest` | Save, find by id, find-all sorted by category then name, update, delete, and missing-id behaviour at the database layer |
-| `MenuServiceTest` | The service delegates to the repository and throws `IllegalArgumentException` for an unknown id |
-| `MenuControllerTest` | `GET /Menu/list` renders the list, `GET /Menu/viewAddForm` opens a blank form, `GET /Menu/viewUpdateForm` loads an item, `POST /Menu/save` redirects to the list, `GET /Menu/delete` redirects to the list |
+| `MenuServiceTest` | The service delegates to the repository and throws `MenuItemNotFoundException` for an unknown id |
+| `MenuControllerTest` | `GET /Menu/list` renders the list, `GET /Menu/viewAddForm` opens a blank form, `GET /Menu/viewUpdateForm` loads an item, `POST /Menu/save` redirects to the list, `POST /Menu/delete` redirects to the list, `GET /Menu/delete` is rejected with 405, a blank name or negative price on save shows the form again with errors, an unknown id on the update form returns 404 |
 
 If `./mvnw test` fails, fix the code first — do not skip to manual testing
 and call the feature done.
@@ -49,8 +49,8 @@ project is graded on.
 
 - There is no login, so anyone who can open the app can edit the menu.
   That is out of scope for this project, not a bug to fix here.
-- Delete is a `GET` request (`/Menu/delete?itemId=...`), so a bookmarked
-  or reloaded delete link would delete again. The browser confirmation is
-  the only guard. Do not share delete links.
+- Delete is a `POST` request (`/Menu/delete`), so a bookmarked link or a
+  link opened by another page cannot delete an item. Reloading the page
+  after a delete only reloads the list, because the controller redirects.
 - Prices are stored as `DECIMAL(8,2)`, so the largest price the table
   accepts is `999999.99`.

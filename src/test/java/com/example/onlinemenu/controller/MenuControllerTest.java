@@ -2,6 +2,7 @@ package com.example.onlinemenu.controller;
 
 import com.example.onlinemenu.controller.MenuController;
 import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.exception.MenuItemNotFoundException;
 import com.example.onlinemenu.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -75,15 +78,59 @@ class MenuControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/Menu/list"));
 
-        verify(menuService).save(org.mockito.ArgumentMatchers.any(MenuItem.class));
+        verify(menuService).save(any(MenuItem.class));
     }
 
     @Test
     void deleteRedirectsToList() throws Exception {
-        mockMvc.perform(get("/Menu/delete").param("itemId", "1"))
+        mockMvc.perform(post("/Menu/delete").param("itemId", "1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/Menu/list"));
 
         verify(menuService).deleteById(1);
+    }
+
+    @Test
+    void deleteWithGetIsNotAllowed() throws Exception {
+        mockMvc.perform(get("/Menu/delete").param("itemId", "1"))
+                .andExpect(status().isMethodNotAllowed());
+
+        verify(menuService, never()).deleteById(1);
+    }
+
+    @Test
+    void saveWithBlankNameShowsFormAgainAndDoesNotSave() throws Exception {
+        mockMvc.perform(post("/Menu/save")
+                        .param("name", "   ")
+                        .param("category", "Appetizers")
+                        .param("description", "Toasted bread, garlic butter")
+                        .param("price", "5.50"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu-form"))
+                .andExpect(model().attributeHasFieldErrors("menuItem", "name"));
+
+        verify(menuService, never()).save(any(MenuItem.class));
+    }
+
+    @Test
+    void saveWithNegativePriceShowsFormAgainAndDoesNotSave() throws Exception {
+        mockMvc.perform(post("/Menu/save")
+                        .param("name", "Garlic Bread")
+                        .param("category", "Appetizers")
+                        .param("description", "Toasted bread, garlic butter")
+                        .param("price", "-1.00"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu-form"))
+                .andExpect(model().attributeHasFieldErrors("menuItem", "price"));
+
+        verify(menuService, never()).save(any(MenuItem.class));
+    }
+
+    @Test
+    void viewUpdateFormReturns404ForUnknownItem() throws Exception {
+        when(menuService.findById(99)).thenThrow(new MenuItemNotFoundException(99));
+
+        mockMvc.perform(get("/Menu/viewUpdateForm").param("itemId", "99"))
+                .andExpect(status().isNotFound());
     }
 }
