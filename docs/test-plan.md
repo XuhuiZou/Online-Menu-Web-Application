@@ -19,8 +19,8 @@ manual checks below do that.
 | --- | --- |
 | `OnlineMenuWebApplicationTests` | The Spring context loads |
 | `MenuItemRepositoryTest` | Save, find by id, find-all sorted by category then name, update, delete, and missing-id behaviour at the database layer |
-| `MenuServiceTest` | The service delegates to the repository and throws `IllegalArgumentException` for an unknown id |
-| `MenuControllerTest` | `GET /Menu/list` renders the list, `GET /Menu/viewAddForm` opens a blank form, `GET /Menu/viewUpdateForm` loads an item, `POST /Menu/save` redirects to the list, `POST /Menu/delete` redirects to the list, `GET /Menu/delete` is rejected with 405 |
+| `MenuServiceTest` | The service delegates to the repository and throws `MenuItemNotFoundException` for an unknown id |
+| `MenuControllerTest` | `GET /Menu/list` renders the list, `GET /Menu/viewAddForm` opens a blank form, `GET /Menu/viewUpdateForm` loads an item, `POST /Menu/save` redirects to the list, `POST /Menu/delete` redirects to the list, `GET /Menu/delete` is rejected with 405, a blank name or negative price on save shows the form again with errors, an unknown id on the update form returns 404 |
 
 If `./mvnw test` fails, fix the code first — do not skip to manual testing
 and call the feature done.

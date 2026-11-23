@@ -2,6 +2,7 @@ package com.example.onlinemenu.controller;
 
 import com.example.onlinemenu.controller.MenuController;
 import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.exception.MenuItemNotFoundException;
 import com.example.onlinemenu.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,5 +124,13 @@ class MenuControllerTest {
                 .andExpect(model().attributeHasFieldErrors("menuItem", "price"));
 
         verify(menuService, never()).save(any(MenuItem.class));
+    }
+
+    @Test
+    void viewUpdateFormReturns404ForUnknownItem() throws Exception {
+        when(menuService.findById(99)).thenThrow(new MenuItemNotFoundException(99));
+
+        mockMvc.perform(get("/Menu/viewUpdateForm").param("itemId", "99"))
+                .andExpect(status().isNotFound());
     }
 }

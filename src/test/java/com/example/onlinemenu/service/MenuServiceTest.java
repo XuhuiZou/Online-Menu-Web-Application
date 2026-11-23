@@ -1,6 +1,7 @@
 package com.example.onlinemenu.service;
 
 import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.exception.MenuItemNotFoundException;
 import com.example.onlinemenu.repository.MenuItemRepository;
 import com.example.onlinemenu.service.MenuServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -54,7 +55,7 @@ class MenuServiceTest {
         when(repository.findById(99)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.findById(99))
-                .isInstanceOf(IllegalArgumentException.class)
+                .isInstanceOf(MenuItemNotFoundException.class)
                 .hasMessageContaining("99");
     }
 
