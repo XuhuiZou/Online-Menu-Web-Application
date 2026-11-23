@@ -2,8 +2,10 @@ package com.example.onlinemenu.controller;
 
 import com.example.onlinemenu.entity.MenuItem;
 import com.example.onlinemenu.service.MenuService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -46,7 +48,12 @@ public class MenuController {
 
     // CREATE / UPDATE: save a new or edited item
     @PostMapping("/save")
-    public String saveMenuItem(@ModelAttribute("menuItem") MenuItem menuItem) {
+    public String saveMenuItem(@Valid @ModelAttribute("menuItem") MenuItem menuItem,
+                               BindingResult bindingResult) {
+        // if the form has errors, show the form again with the error messages
+        if (bindingResult.hasErrors()) {
+            return "menu-form";
+        }
         menuService.save(menuItem);
         return "redirect:/Menu/list";
     }

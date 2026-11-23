@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -76,7 +77,7 @@ class MenuControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/Menu/list"));
 
-        verify(menuService).save(org.mockito.ArgumentMatchers.any(MenuItem.class));
+        verify(menuService).save(any(MenuItem.class));
     }
 
     @Test
@@ -94,5 +95,33 @@ class MenuControllerTest {
                 .andExpect(status().isMethodNotAllowed());
 
         verify(menuService, never()).deleteById(1);
+    }
+
+    @Test
+    void saveWithBlankNameShowsFormAgainAndDoesNotSave() throws Exception {
+        mockMvc.perform(post("/Menu/save")
+                        .param("name", "   ")
+                        .param("category", "Appetizers")
+                        .param("description", "Toasted bread, garlic butter")
+                        .param("price", "5.50"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu-form"))
+                .andExpect(model().attributeHasFieldErrors("menuItem", "name"));
+
+        verify(menuService, never()).save(any(MenuItem.class));
+    }
+
+    @Test
+    void saveWithNegativePriceShowsFormAgainAndDoesNotSave() throws Exception {
+        mockMvc.perform(post("/Menu/save")
+                        .param("name", "Garlic Bread")
+                        .param("category", "Appetizers")
+                        .param("description", "Toasted bread, garlic butter")
+                        .param("price", "-1.00"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("menu-form"))
+                .andExpect(model().attributeHasFieldErrors("menuItem", "price"));
+
+        verify(menuService, never()).save(any(MenuItem.class));
     }
 }

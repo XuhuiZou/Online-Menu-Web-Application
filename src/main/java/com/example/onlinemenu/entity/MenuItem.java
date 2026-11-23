@@ -1,6 +1,11 @@
 package com.example.onlinemenu.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import java.math.BigDecimal;
 
 @Entity
@@ -12,15 +17,24 @@ public class MenuItem {
     @Column(name = "id")
     private int id;
 
+    @NotBlank(message = "Name is required")
+    @Size(max = 255, message = "Name can be at most 255 characters")
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
+    @NotBlank(message = "Please choose a category")
+    @Size(max = 100, message = "Category can be at most 100 characters")
     @Column(name = "category", nullable = false, length = 100)
     private String category;
 
+    @NotBlank(message = "Description is required")
+    @Size(max = 500, message = "Description can be at most 500 characters")
     @Column(name = "description", nullable = false, length = 500)
     private String description;
 
+    @NotNull(message = "Price is required")
+    @DecimalMin(value = "0.00", message = "Price cannot be negative")
+    @Digits(integer = 6, fraction = 2, message = "Price can have at most 6 digits before the decimal and 2 after")
     @Column(name = "price", nullable = false, precision = 8, scale = 2)
     private BigDecimal price;
 
