@@ -1,7 +1,8 @@
-package com.onlinemenu.service;
+package com.example.onlinemenu.service;
 
-import com.onlinemenu.entity.MenuItem;
-import com.onlinemenu.repository.MenuItemRepository;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.repository.MenuItemRepository;
+import com.example.onlinemenu.service.MenuServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

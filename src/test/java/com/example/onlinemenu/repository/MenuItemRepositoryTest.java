@@ -1,6 +1,7 @@
-package com.onlinemenu.repository;
+package com.example.onlinemenu.repository;
 
-import com.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.repository.MenuItemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;

@@ -1,7 +1,8 @@
-package com.onlinemenu.controller;
+package com.example.onlinemenu.controller;
 
-import com.onlinemenu.entity.MenuItem;
-import com.onlinemenu.service.MenuService;
+import com.example.onlinemenu.controller.MenuController;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
@@ -42,7 +43,7 @@ class MenuControllerTest {
 
         mockMvc.perform(get("/Menu/list"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("menu/list-menu"))
+                .andExpect(view().name("list-menu"))
                 .andExpect(model().attribute("menuItems", hasSize(2)));
     }
 
@@ -50,7 +51,7 @@ class MenuControllerTest {
     void viewAddFormOpensBlankForm() throws Exception {
         mockMvc.perform(get("/Menu/viewAddForm"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("menu/menu-form"))
+                .andExpect(view().name("menu-form"))
                 .andExpect(model().attributeExists("menuItem"));
     }
 
@@ -60,7 +61,7 @@ class MenuControllerTest {
 
         mockMvc.perform(get("/Menu/viewUpdateForm").param("itemId", "1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("menu/menu-form"))
+                .andExpect(view().name("menu-form"))
                 .andExpect(model().attributeExists("menuItem"));
     }
 
