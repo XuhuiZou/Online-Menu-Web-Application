@@ -1,7 +1,7 @@
-package com.onlinemenu.controller;
+package com.example.onlinemenu.controller;
 
-import com.onlinemenu.entity.MenuItem;
-import com.onlinemenu.service.MenuService;
+import com.example.onlinemenu.entity.MenuItem;
+import com.example.onlinemenu.service.MenuService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
