@@ -52,7 +52,7 @@ public class MenuController {
     }
 
     // DELETE: remove an item, then return to the list
-    @GetMapping("/delete")
+    @PostMapping("/delete")
     public String delete(@RequestParam("itemId") int id) {
         menuService.deleteById(id);
         return "redirect:/Menu/list";

@@ -34,7 +34,7 @@ The application supports the full CRUD (Create, Read, Update, Delete) workflow f
 | Create | `/Menu/viewAddForm` | GET | Open a blank menu item form. |
 | Create / Update | `/Menu/save` | POST | Save a new or edited menu item. |
 | Update | `/Menu/viewUpdateForm?itemId=...` | GET | Load an existing item into the form. |
-| Delete | `/Menu/delete?itemId=...` | GET | Delete the selected item after UI confirmation. |
+| Delete | `/Menu/delete` (`itemId` form field) | POST | Delete the selected item after UI confirmation. |
 
 ## Technology Stack
 

@@ -69,13 +69,13 @@
                                class="btn btn-sm btn-outline-secondary mr-2">
                                 Update
                             </a>
-                            <!-- Delete Action with Browser Confirmation -->
-                            <a th:href="@{/Menu/delete(itemId=${item.id})}"
-                               class="btn btn-sm btn-outline-danger"
-                               th:data-name="${item.name}"
-                               onclick="return confirm('Are you sure you want to delete ' + this.getAttribute('data-name') + '?')">
-                                Delete
-                            </a>
+                            <!-- Delete Action (POST form) with Browser Confirmation -->
+                            <form th:action="@{/Menu/delete}" method="post" class="d-inline"
+                                  th:data-name="${item.name}"
+                                  onsubmit="return confirm('Are you sure you want to delete ' + this.getAttribute('data-name') + '?')">
+                                <input type="hidden" name="itemId" th:value="${item.id}" />
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                            </form>
                         </td>
                     </tr>
                     </tbody>

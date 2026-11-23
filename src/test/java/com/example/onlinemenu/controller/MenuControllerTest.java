@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -80,10 +81,18 @@ class MenuControllerTest {
 
     @Test
     void deleteRedirectsToList() throws Exception {
-        mockMvc.perform(get("/Menu/delete").param("itemId", "1"))
+        mockMvc.perform(post("/Menu/delete").param("itemId", "1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/Menu/list"));
 
         verify(menuService).deleteById(1);
+    }
+
+    @Test
+    void deleteWithGetIsNotAllowed() throws Exception {
+        mockMvc.perform(get("/Menu/delete").param("itemId", "1"))
+                .andExpect(status().isMethodNotAllowed());
+
+        verify(menuService, never()).deleteById(1);
     }
 }
