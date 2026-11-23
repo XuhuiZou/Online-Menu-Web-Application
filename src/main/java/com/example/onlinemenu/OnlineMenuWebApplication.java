@@ -1,4 +1,4 @@
-package com.onlinemenu;
+package com.example.onlinemenu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
